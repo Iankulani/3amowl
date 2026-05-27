@@ -1,9 +1,10 @@
 # 3amowl
 
-3amowl
-
 
 # 🦉 3AMOWL 
+
+<img width="1500" height="1024" alt="amV" src="https://github.com/user-attachments/assets/24461a9c-1e1e-4d97-a794-4f90d7ad4341" />
+
 
 [![License](https://img.shields.io/badge/license-Educational%20Purpose-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://python.org)
