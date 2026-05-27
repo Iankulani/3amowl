@@ -3,7 +3,7 @@
 3amowl
 
 
-# 🦉 3AMOWL - Advanced Cybersecurity Tool
+# 🦉 3AMOWL 
 
 [![License](https://img.shields.io/badge/license-Educational%20Purpose-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://python.org)
@@ -12,7 +12,28 @@
 
 ## ⚠️ WARNING - FOR AUTHORIZED TESTING ONLY
 
-**3AMOWL is a comprehensive cybersecurity tool designed for authorized security testing, penetration testing, and educational purposes only. Unauthorized use against systems you do not own or have explicit permission to test is illegal.**
+3AMOWL is an educational command and control (C2) framework designed for authorized penetration testing, red team exercises, and academic cybersecurity labs. It enables security students and professionals to issue commands through seven real-world messaging platforms—Telegram, Slack, iMessage, Discord, Signal, WhatsApp, and a unified web application—to simulate how modern adversaries use legitimate services for covert operations..
+
+# Key educational capabilities:
+
+* Remotely execute shell commands, upload/download files, capture screenshots, and manage keyloggers (within your own lab systems)
+
+* Control multiple agents simultaneously from any supported chat interface
+
+* Observe encrypted C2 traffic blending with normal messaging API calls
+
+* Learn MITRE ATT&CK techniques (T1071.001, T1102, T1059) in a safe, logged environment
+
+* Strict legal & ethical guardrails:
+
+* ✅ Only for systems you own or have written permission to test
+
+* ❌ Never for unauthorized access, surveillance, or malicious use
+
+* Built-in killswitch, domain allow-listing, and educational watermarks
+
+Typical use cases: University cyber ranges, CTF competitions, and internal red team training where Slack, Discord, or Telegram replace traditional HTTP/S listeners.
+
 
 ## 🎯 Features
 
