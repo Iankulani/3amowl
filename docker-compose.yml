@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  3amowl:
+    build: .
+    container_name: 3amowl
+    restart: unless-stopped
+    network_mode: host  # Required for raw packet access
+    privileged: true     # Required for firewall and packet generation
+    volumes:
+      - ./3amowl.py:/app/3amowl.py:ro
+      - ./.3amowl:/app/.3amowl
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=UTC
+    stdin_open: true
+    tty: true
+    # Ports (if not using host network)
+    # ports:
+    #   - "8080:8080"  # Phishing server
+    #   - "4444:4444"  # Netcat listener
+    #   - "5555:5555"  # Reverse shell
+    #   - "6666:6666"  # Bind shell
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+  # Optional: PostgreSQL for persistent storage
+  postgres:
+    image: postgres:15-alpine
+    container_name: 3amowl-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: 3amowl
+      POSTGRES_USER: 3amowl
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - 3amowl-net
+
+  # Optional: Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: 3amowl-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - 3amowl-net
+
+  # Optional: Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: 3amowl-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - 3amowl-net
+
+  # Optional: Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: 3amowl-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - 3amowl-net
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  3amowl-net:
+    driver: bridge
