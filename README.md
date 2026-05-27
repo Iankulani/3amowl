@@ -100,4 +100,7 @@ chmod +x install.sh
 ./install.sh
 ```
 # Or run directly
+
+```bash
 python3 3amowl.py
+```
